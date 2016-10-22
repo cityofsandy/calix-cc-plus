@@ -23,3 +23,8 @@ This class was written in part of the Fiber Management System for the Cit of San
  ```
  Where $config[''] vars are your cc plus api username/password and host
  
+ ### Creating a subscriber record
+ ```
+ $cc_result = $cc->post_add_subscriber(json_encode($cust_id), "Business", "ACCOUNT NAME");
+ ```
+ 
