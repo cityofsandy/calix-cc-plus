@@ -1,5 +1,5 @@
 # calix-cc-plus
-This class was written in part of the Fiber Management System for the Cit of Sandy. It currently features the following operations
+This class was written in part of the Fiber Management System for the City of Sandy. It currently features the following operations
 
 
 * Subscriber
@@ -126,7 +126,7 @@ if($cc_result && empty($cc_result->error)){
 ```
 
 When creating or updating a record, an couple example arrays are provided. 
-## Updating a subscriber
+### Updating a subscriber
 ```
 $subscriber_id = $csrr->{'_id'};
 $request = array(
