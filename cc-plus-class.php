@@ -54,7 +54,7 @@ class cc_plus {
 
 	/**
 	 *  Function will create a subscriber
-	 *  Params: FMS customer ID, type (residential or business), name
+	 *  Params: FMS customer id, type (residential or business), name
 	 *  Returns: Array, "errors", "result" 
 	 */
 	public function post_add_subscriber($customId, $type, $name){
@@ -266,7 +266,7 @@ class cc_plus {
 			CURLOPT_CUSTOMREQUEST=> "POST",
 			CURLOPT_SSL_VERIFYHOST => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_TIMEOUT => 5,
+			CURLOPT_TIMEOUT => 60,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_POSTFIELDS => $arguments,
 			CURLOPT_HTTPHEADER => array(
@@ -319,7 +319,7 @@ class cc_plus {
 			CURLOPT_CUSTOMREQUEST=> "PUT",
 			CURLOPT_SSL_VERIFYHOST => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_TIMEOUT => 5,
+			CURLOPT_TIMEOUT => 60,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_POSTFIELDS => $arguments,
 			CURLOPT_HTTPHEADER => array(
@@ -381,7 +381,7 @@ class cc_plus {
 			CURLOPT_SSL_VERIFYPEER => 0,
 			CURLOPT_CONNECTTIMEOUT => 5,
 			CURLOPT_FRESH_CONNECT => 1,
-			CURLOPT_TIMEOUT => 5,
+			CURLOPT_TIMEOUT => 60,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_HTTPHEADER => array(
 									"Authorization: Basic ".base64_encode($this->cc_username.":".$this->cc_password), 
@@ -430,7 +430,7 @@ class cc_plus {
 			CURLOPT_CUSTOMREQUEST=> "DELETE",
 			CURLOPT_SSL_VERIFYHOST => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_TIMEOUT => 5,
+			CURLOPT_TIMEOUT => 60,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_HTTPHEADER => array(
 									"Authorization: Basic ".base64_encode($this->cc_username.":".$this->cc_password), 
