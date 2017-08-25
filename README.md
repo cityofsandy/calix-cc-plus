@@ -1,7 +1,6 @@
 # calix-cc-plus
 This class was written in part of the Fiber Management System for the City of Sandy. It currently features the following operations
 
-
 * Subscriber
  * Creating
  * Updating
@@ -15,6 +14,9 @@ This class was written in part of the Fiber Management System for the City of Sa
  * Delete
 * Devices
  * Select via serialNumber/FSAN
+* TR-069 Methods
+ 
+Please make sure the PHP CURL module is enabled on your system!!!
  
 ## Usage
  Include the class in your php page
@@ -73,6 +75,32 @@ print_r($cc->delete_provisioning_record_id("4b07c553-sdfas-sadfkjsalfjasad-sdfs"
 Get device from serial number
 ```
 print_r($cc->get_device_serial("CXNK00FFFFFF"));
+```
+
+### Sending TR-069 Messages
+Set the parameters in an array. The following example sends a request to Consumer Connect to open the remote portal for a device. Most commands from the [tr-098 document from the Broadband Forum](https://www.broadband-forum.org/cwmp/tr-098-1-8-0.html) work. 
+```
+$tr_069_args = array(
+	"operation"=>"SetParameterValues",
+	"cpeIdentifier"=> array(
+		"serialNumber"=>$fsan
+	),
+	"parameterValues"=>array(
+		"InternetGatewayDevice.UserInterface.RemoteAccess.Enable"=>"true",
+		"InternetGatewayDevice.UserInterface.RemoteAccess.Port"=>"8080",
+		"InternetGatewayDevice.UserInterface.RemoteAccess.Protocol"=>"HTTP",
+		"InternetGatewayDevice.User.2.RemoteAccessCapable"=>"true"
+	)
+);
+```
+Calix requires that a JSON string is sent to their system. The parameters above are required:
+* operations - (SetParameterValues, GetParameterValues, Reboot, FactoryReset, Download (untested but didn't fail!). Upload is currently not supported at the time of this documentation writing. 
+* cpeIdentifier - I use serialNumber, but refer to the calix documentation for others like IP or MAC or something..
+* parameterValues - can set or use multiple elements within requests, unless Reboot or FactoryReset (which should be empty unless requesting some id callback thingy)
+
+Then you can pass the array to the method. 
+```
+$record = $cc->post_tr_069_request(json_encode($tr_069_args));
 ```
 
 ## Example objects to help you get started
