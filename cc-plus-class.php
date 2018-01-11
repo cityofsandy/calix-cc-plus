@@ -239,14 +239,42 @@ class cc_plus {
 	 */
 	public function get_device_serial($serialNumber){
 		$record = $this->query_get("/api/device", array("serialNumber"=>$serialNumber));
+		$http_code = $this->get_status_code($record->info);
+		
+		if($http_code != 200){
+			$record->error = "Invalid http response: ".$http_code;
+		}
+		
 		if(isset($record) && isset($record->result)){
 			if(count($record->result) == 1){
 				$record->result = array($record->result);
 			}
 		}
+		
 		return $record;
 	}	
 	
+	
+/*****************************************************************************************************************************
+ ** TR-069 METHODS   TR-069 METHODS   TR-069 METHODS   TR-069 METHODS   TR-069 METHODS   TR-069 METHODS   TR-069 METHODS  ****
+ ****************************************************************************************************************************/ 
+	
+ 	/**
+	 *  Function will create a provisioning record
+	 *  Params: array of arguments for record
+	 *  Returns: Array, "errors", "result" 
+	 */
+	public function post_tr_069_request($arguments){
+					
+		$record = $this->query_post("/api/device-op", $arguments);
+		$http_code = $this->get_status_code($record->info);
+		
+		if($http_code != 200){
+			$record->error = "Invalid http response: ".$http_code;
+		}
+		
+		return $record;
+	}
 	
 /*****************************************************************************************************************************
  ** CURL METHODS   CURL METHODS   CURL METHODS   CURL METHODS   CURL METHODS   CURL METHODS   CURL METHODS   CURL METHODS ****
@@ -266,7 +294,7 @@ class cc_plus {
 			CURLOPT_CUSTOMREQUEST=> "POST",
 			CURLOPT_SSL_VERIFYHOST => 0,
 			CURLOPT_SSL_VERIFYPEER => 0,
-			CURLOPT_TIMEOUT => 60,
+			CURLOPT_TIMEOUT => 300,
 			CURLOPT_RETURNTRANSFER => 1,
 			CURLOPT_POSTFIELDS => $arguments,
 			CURLOPT_HTTPHEADER => array(
