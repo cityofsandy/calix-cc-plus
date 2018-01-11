@@ -154,7 +154,7 @@ if($cc_result && empty($cc_result->error)){
 ```
 
 When creating or updating a record, an couple example arrays are provided. 
-### Updating a subscriber
+### Creating a Provisioning Record
 ```
 $subscriber_id = $csrr->{'_id'};
 $request = array(
@@ -185,6 +185,10 @@ $request = array(
 $cc_result = $cc->post_add_provisioning_record($request);
 ```
 
-
-
+## Examples
+Check out the examples folder for the following
+* Creating a subscriber by giving only the required fields
+* Update the subscriber by pulling its record using the customId set by an OSS and then using it's cc+ id to update it's customer config
+* Pull a CPE's WLAN config from TR-069 in JSON
+* Push a CPE's WiFi configuration by creating a provisioning record
 
